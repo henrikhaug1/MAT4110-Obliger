@@ -1,0 +1,19 @@
+[project]
+name = "mat4110"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "matplotlib>=3.10.7",
+    "numpy>=2.3.3",
+    "pillow>=11.3.0",
+    "scipy>=1.16.2",
+]
+
+[dependency-groups]
+dev = [
+    "ipython>=9.6.0",
+    "pytest>=8.4.2",
+    "pytest-cov>=7.0.0",
+]
