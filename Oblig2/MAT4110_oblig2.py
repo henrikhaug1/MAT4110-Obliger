@@ -21,7 +21,7 @@ def compression_ratio(m: int, n: int, r: int) -> float:
 
 paths = ["board.png", "jellyfish.jpg", "outdoors.jpg"]
 images = [convert_grayscale(p) for p in paths]
-r_list = [5, 20, 50, 100]
+r_list = [5, 20, 100]
 
 for idx, im in enumerate(images):
     # ---------- Compute SVD ----------
@@ -30,20 +30,20 @@ for idx, im in enumerate(images):
     # ---------- Plot log of singular values ----------
     plt.figure(figsize=(6, 4))
     plt.plot(np.log10(S + 1e-12), marker="o", markersize=3)
-    plt.xlabel("Index k")
-    plt.ylabel(r"$log10(\sigma_k)$")
-    plt.title(f"Log of singular values (Image {idx + 1})")
+    plt.xlabel("Index k", fontsize=16)
+    plt.ylabel(r"$log10(\sigma_k)$", fontsize=16)
+    plt.title(f"Log of singular values (Image {idx + 1})", fontsize=16)
     plt.grid(True)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"Log_singvals_{idx + 1}.pdf")
 
     # ---------- Compress and show results ----------
     m, n = im.shape
-    plt.figure(figsize=(12, 2.5))
+    plt.figure(figsize=(20, 8))
     plt.subplot(1, len(r_list) + 1, 1)
     plt.imshow(im, cmap="gray")
     plt.axis("off")
-    plt.title("original")
+    plt.title("original", fontsize=16)
 
     for j, r in enumerate(r_list, start=2):
         im_r = (U[:, :r] * S[:r]) @ VT[:r, :]
@@ -52,8 +52,8 @@ for idx, im in enumerate(images):
         plt.subplot(1, len(r_list) + 1, j)
         plt.imshow(im_r, cmap="gray")
         plt.axis("off")
-        plt.title(f"r={r}\nCR={cr:.2f}")
+        plt.title(f"r={r}\nCR={cr:.2f}", fontsize=16)
 
-    plt.suptitle(f"Image {idx + 1} (m={m}, n={n})")
+    plt.suptitle(f"Image {idx + 1} (m={m}, n={n})", fontsize=16)
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"image_{idx + 1}.pdf")
